@@ -1,6 +1,6 @@
 public class Static {
     // Static variable
-    static int Variable = 50;
+    static int Variable = 60;
 
     // Static method that returns an int
     public static int StaticVariable() {
