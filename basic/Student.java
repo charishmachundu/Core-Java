@@ -1,3 +1,4 @@
+package basic;
 public class Student {
 
     private String name = "Charishma";

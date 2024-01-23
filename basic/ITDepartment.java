@@ -1,3 +1,5 @@
+package basic;
+
 public class ITDepartment extends Department{
 
     private int departmentSize;
