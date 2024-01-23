@@ -6,6 +6,7 @@ public class Movie {
     double rating;
     double budget;
     double collectionAmount;
+    
     public Movie(int yearReleased, double rating, double budget, double collectionAmount) {
         this.yearReleased = yearReleased;
         this.rating = rating;
