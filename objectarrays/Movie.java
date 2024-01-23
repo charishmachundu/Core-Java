@@ -1,74 +1,71 @@
 package objectarrays;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class Movie {
-        private int yearReleased;
-        private double rating;
-        private double budget;
-        private double collectionAmount;
-
-        public Movie(int yearReleased, double rating, double budget, double collectionAmount) {
-            this.yearReleased = yearReleased;
-            this.rating = rating;
-            this.budget = budget;
-            this.collectionAmount = collectionAmount;
+    int yearReleased;
+    double rating;
+    double budget;
+    double collectionAmount;
+    public Movie(int yearReleased, double rating, double budget, double collectionAmount) {
+        this.yearReleased = yearReleased;
+        this.rating = rating;
+        this.budget = budget;
+        this.collectionAmount = collectionAmount;
+    }
+    public int getYearReleased() {
+        return yearReleased;
+    }
+    public double getRating() {
+        return rating;
+    }
+    public double getBudget() {
+        return budget;
+    }
+    public double getCollectionAmount() {
+        return collectionAmount;
+    }
+    public static class RatingProfitComparator implements Comparator<Movie> {
+        @Override
+        public int compare(Movie m1, Movie m2) {
+            if(m1.rating>=m2.rating && m1.collectionAmount>=m2.collectionAmount)
+                return 1;
+            else
+                return -1;
         }
-
-        public int getYearReleased() {
-            return yearReleased;
+    }
+    public static class YearRatingComparator implements Comparator<Movie> {
+        @Override
+        public int compare(Movie m1, Movie m2) {
+            if (m1.yearReleased >=m2.yearReleased && m1.rating >=m2.rating)
+                return 1;
+            else
+                return -1;
         }
-        public void setYearReleased(int yearReleased) {
-            this.yearReleased = yearReleased;
+    }
+
+    // Example usage
+    public static void main(String[] args) {
+        List<Movie> movies = new ArrayList<>();
+        movies.add(new Movie(2000, 8.5, 50.0, 150.0));
+        movies.add(new Movie(1995, 7.8, 30.0, 120.0));
+        movies.add(new Movie(2005, 9.2, 80.0, 120.0));
+
+        // Sort movies by rating and profit using RatingProfitComparator
+        Collections.sort(movies, new RatingProfitComparator());
+        System.out.println("Sorted by Rating and collectionAmount:");
+        displayMovies(movies);
+
+        // Sort movies by year released and rating using YearRatingComparator
+        Collections.sort(movies, new YearRatingComparator());
+        System.out.println("\nSorted by Year Released and Rating:");
+        displayMovies(movies);
+    }
+    private static void displayMovies(List<Movie> movies) {
+        for (Movie movie : movies) {
+            System.out.println("Year Released: " + movie.getYearReleased() +
+                    ", Rating: " + movie.getRating() +
+                    ", Budget: " + movie.getBudget() +
+                    ", Collection Amount: " + movie.getCollectionAmount());
         }
-
-        public double getRating() {
-            return rating;
-        }
-        public void setRating(double rating) {
-            this.rating = rating;
-        }
-
-        public double getBudget() {
-            return budget;
-        }
-        public void setBudget(double budget) {
-            this.budget = budget;
-        }
-
-        public double getCollectionAmount() {
-            return collectionAmount;
-        }
-        public void setCollectionAmount(double collectionAmount) {
-            this.collectionAmount = collectionAmount;
-        }
-
-        // Comparator for sorting by rating and profit
-        public static Comparator<Movie> ratingAndProfitComparator = Comparator
-                .comparing(Movie::getRating)
-                .thenComparingDouble(movie -> movie.getCollectionAmount() - movie.getBudget());
-
-        // Comparator for sorting by year released and rating
-        public static Comparator<Movie> yearReleasedAndRatingComparator = Comparator
-                .comparingInt(Movie::getYearReleased)
-                .thenComparingDouble(Movie::getRating);
-
-        // Example of usage
-        public static void main(String[] args) {
-            List<Movie> movies = new ArrayList<>();
-            movies.add(new Movie(2005, 8.5, 50_000_000, 200_000_000));
-            movies.add(new Movie(2010, 7.8, 80_000_000, 150_000_000));
-            movies.add(new Movie(2015, 9.2, 120_000_000, 400_000_000));
-
-            Collections.sort(movies, Movie.ratingAndProfitComparator);
-            System.out.println("Sorted by Rating and Profit:");
-            movies.forEach(movie -> System.out.println(movie.getRating() + " - " + (movie.getCollectionAmount() - movie.getBudget())));
-
-
-            Collections.sort(movies, Movie.yearReleasedAndRatingComparator);
-            System.out.println("\nSorted by Year Released and Rating:");
-            movies.forEach(movie -> System.out.println(movie.getYearReleased() + " - " + movie.getRating()));
-        }
+    }
 }
