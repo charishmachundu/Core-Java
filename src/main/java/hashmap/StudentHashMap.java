@@ -28,6 +28,7 @@ public class StudentHashMap {
 
         // Example: Retrieving a student by name
         String searchName = "Alice";
+        
         Student result = studentHashMap.getStudentByName(searchName);
 
         if (result != null) {
